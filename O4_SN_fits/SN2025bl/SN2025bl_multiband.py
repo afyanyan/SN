@@ -10,7 +10,7 @@ def main():
 
       # Define the directory containing light curve files
     #lc_directory = '../../O4_SN/o4_supernovae/SN_2025vzq/'
-    lc_directory = r'C:\Users\conno\New folder\SN\O4_SN\o4_supernovae\SN_2025vzq'
+    lc_directory = r'C:\Users\conno\New folder\SN\O4_SN\o4_supernovae\SN_2025bl'
 #C:\Users\conno\New folder\SN\O4_SN\o4_supernovae\SN_2023abdg
     # Get a list of all light curve files in the directory
     # Assuming all files in this directory are light curve files with the specified format
@@ -32,11 +32,11 @@ def main():
         
       #print('1')
     combined_lc_df = pd.DataFrame({'MJD': t_FRG, 'mag': mag_FRG, 'dmag': dmag_FRG})
-    combined_lc_df = combined_lc_df[~np.isclose(combined_lc_df['MJD'], 60912.710543)]
+    combined_lc_df = combined_lc_df[~np.isclose(combined_lc_df['MJD'], 60677.49069)]
     combined_lc_file = 'combined_lightcurve.csv'
     combined_lc_df.to_csv(combined_lc_file, index=False)
 
-    supernova = SN(bkg=r'C:\Users\conno\New folder\O4_SN\o4_BKG\sn_2025vzq_goto_L_ul.dat', lc = combined_lc_file)
+    supernova = SN(bkg=r'C:\Users\conno\New folder\O4_SN\o4_BKG\sn_2025bl_atlas_o_ul.dat', lc = combined_lc_file)
     # Load supernova data
     #supernova = SN(bkg='../../O4_SN/o4_BKG/SN_2023_abdg_background_tns.txt', lc='../../O4_SN/o4_supernovae/SN_2023abdg/sn_2023abdg_atlas_c.dat')
     #supernova = SN(bkg='sn_2023_abdg_background_tns.txt', lc='sn_2023abdg_asas_g.dat')

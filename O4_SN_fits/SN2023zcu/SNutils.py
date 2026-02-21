@@ -53,9 +53,16 @@ class SN:
         plt.ylabel('mag')
         plt.ylim([np.min(self.mag)-1,np.max(self.ave_BKG)+1])
         plt.gca().invert_yaxis()
-        plt.plot(self.t_sbo+self.epoch, self.ave_BKG, marker="*", markersize=15, label="t_SBO",     color='y')
+        #plt.plot(self.t_sbo+self.epoch, self.ave_BKG, marker="*", markersize=15, label="t_SBO",     color='y')
         df_bkg = pd.read_csv(self.bkg)
         plt.scatter(df_bkg['MJD'], df_bkg['mag'], color='black', label='Last Null Detection')
+        label = 'LND: {}'
+        df_bkg = pd.read_csv(self.bkg)
+        lnd = float(df_bkg['MJD'].iloc[0] if isinstance(df_bkg['MJD'], pd.Series) else df_bkg['MJD'])
+        lnd_label = label.format(lnd)
+        plt.scatter(df_bkg['MJD'], df_bkg['mag'], color='black', label=lnd_label)
+        SBO_label = 'SBO:', float(self.t_sbo+self.epoch)
+        plt.scatter(self.t_sbo+self.epoch, self.ave_BKG, color='blue', label = SBO_label)
         plt.grid()
         plt.legend()
         ax = plt.gca()
@@ -63,12 +70,16 @@ class SN:
         lnd = float(df_bkg['MJD'].iloc[0] if isinstance(df_bkg['MJD'], pd.Series) else df_bkg['MJD'])
         if self.t_sbo+self.epoch < lnd:
           print('t_sbo calculated to be before lnd')
-        ax.annotate(self.t_sbo+self.epoch,
-            xy=(self.t_sbo+self.epoch, self.ave_BKG),
-            xytext=(self.t_sbo+self.epoch + 5, self.ave_BKG + 0.5),
-            arrowprops=dict(facecolor='black', shrink=0.05),
-            horizontalalignment='left', verticalalignment='top',
-            fontsize=12)
+        #ax.annotate(self.t_sbo+self.epoch,
+         #   xy=(self.t_sbo+self.epoch, self.ave_BKG),
+          #  xytext=(self.t_sbo+self.epoch + 5, self.ave_BKG + 0.5),
+          #  arrowprops=dict(facecolor='black', shrink=0.05),
+          #  horizontalalignment='left', verticalalignment='top',
+          #  fontsize=12)
+        interval = np.array([[self.t_sbo - self.t_sbo_l], 
+                             [self.t_sbo - self.t_sbo_r]
+                             ])
+        plt.errorbar(self.t_sbo+self.epoch, self.ave_BKG, xerr=np.abs(interval), fmt='o', ecolor = 'yellow')
         plot_title = "Shock break out time from %.2f to %.2f MJD" % (self.t_sbo_l+self.epoch, self.t_sbo_r+self.epoch)
         plt.title(plot_title)
         plt.savefig(self.lc.split('.')[0]+'-fit.png')

@@ -6,9 +6,8 @@ from sklearn.gaussian_process.kernels import WhiteKernel
 
 def main():
     # Load supernova data
-    supernova = SN(bkg='C:/Users/conno/New folder/SN/O4_SN/o4_BKG/SN_2023_abdg_background_tns.txt', lc='C:/Users/conno/New folder/SN/O4_SN/o4_supernovae/SN_2023abdg/sn_2023abdg_atlas_c.dat')
+    supernova = SN(bkg='../../O4_SN/o4_BKG/SN_2024xuo_goto_L_ul.dat', lc='../../O4_SN/o4_supernovae/SN_2024xuo/sn_2024xuo_asas_g.dat')
     #supernova = SN(bkg='sn_2023_abdg_background_tns.txt', lc='sn_2023abdg_asas_g.dat')
-
     # Read and plot data
     time, mag = supernova.read_data()
     supernova.plot_data()

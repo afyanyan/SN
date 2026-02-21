@@ -4,9 +4,10 @@ from SNkernels import KernelUtils as KU
 from SNkernels import QuarticKernel,ExpCompositeKernel, ReducedQuarticKernel  # Import custom kernels
 from sklearn.gaussian_process.kernels import WhiteKernel
 
+
 def main():
     # Load supernova data
-    supernova = SN(bkg='../../O4_SN/o4_BKG/SN_2023_abdg_background_tns.txt', lc='../../O4_SN/o4_supernovae/SN_2023abdg/sn_2023abdg_asas_g.dat')
+    supernova = SN(bkg='C:/Users/conno/New folder/SN/O4_SN/o4_BKG/SN_2023_abdg_background_tns.txt', lc='C:/Users/conno/New folder/SN/O4_SN/o4_supernovae/SN_2023abdg/sn_2023abdg_asas_g.dat')
     #supernova = SN(bkg='sn_2023_abdg_background_tns.txt', lc='sn_2023abdg_asas_g.dat')
 
     # Read and plot data
