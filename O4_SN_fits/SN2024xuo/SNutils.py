@@ -55,19 +55,17 @@ class SN:
         plt.gca().invert_yaxis()
         #plt.plot(self.t_sbo+self.epoch, self.ave_BKG, marker="*", markersize=15, label="t_SBO",     color='y')
         df_bkg = pd.read_csv(self.bkg)
-        plt.scatter(df_bkg['MJD'], df_bkg['mag'], color='black', label='Last Null Detection')
+        #plt.scatter(df_bkg['MJD'], df_bkg['mag'], color='black', label='Last Null Detection')
         label = 'LND: {}'
         df_bkg = pd.read_csv(self.bkg)
         lnd = float(df_bkg['MJD'].iloc[0] if isinstance(df_bkg['MJD'], pd.Series) else df_bkg['MJD'])
         lnd_label = label.format(lnd)
-        #plt.scatter(df_bkg['MJD'], df_bkg['mag'], color='black', label=lnd_label)
+        plt.scatter(df_bkg['MJD'], df_bkg['mag'], color='black', label=lnd_label)
         SBO_label = 'SBO:', float(self.t_sbo+self.epoch)
         plt.scatter(self.t_sbo+self.epoch, self.ave_BKG, color='blue', label = SBO_label)
         plt.grid()
         plt.legend()
         ax = plt.gca()
-        df_bkg = pd.read_csv(self.bkg)
-        lnd = float(df_bkg['MJD'].iloc[0] if isinstance(df_bkg['MJD'], pd.Series) else df_bkg['MJD'])
         if self.t_sbo+self.epoch < lnd:
           print('t_sbo calculated to be before lnd')
         #ax.annotate(self.t_sbo+self.epoch,
